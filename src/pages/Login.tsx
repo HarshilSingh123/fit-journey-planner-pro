@@ -83,11 +83,11 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-blue-50 to-blue-100 p-4">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-yellow-50 to-yellow-100 p-4">
       <div className="text-center mb-8">
         <div className="flex items-center justify-center">
-          <Dumbbell className="h-10 w-10 text-fitness-primary mr-2" />
-          <h1 className="text-4xl font-bold text-fitness-primary">FitJourney</h1>
+          <Dumbbell className="h-10 w-10 text-fitness-accent mr-2" />
+          <h1 className="text-4xl font-bold text-fitness-accent">GlowUp</h1>
         </div>
         <p className="text-gray-600 mt-2">Your personalized fitness and meal planner</p>
       </div>
@@ -234,3 +234,4 @@ const Login = () => {
 };
 
 export default Login;
+

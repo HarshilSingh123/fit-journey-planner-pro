@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useUser } from '@/contexts/UserContext';
@@ -16,12 +15,12 @@ const NavBar: React.FC = () => {
   if (!isLoggedIn) return null;
 
   return (
-    <nav className="bg-fitness-primary text-white shadow-md">
+    <nav className="bg-fitness-primary text-black shadow-md">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
-            <Link to="/dashboard" className="font-bold text-xl">
-              FitJourney
+            <Link to="/dashboard" className="font-bold text-xl text-black">
+              GlowUp
             </Link>
           </div>
 
