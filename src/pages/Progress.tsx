@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '@/contexts/UserContext';
@@ -13,6 +12,28 @@ import { Trophy, Calendar as CalendarIcon, TrendingUp, Award, Activity } from 'l
 import { toast } from '@/components/ui/sonner';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { cn } from '@/lib/utils';
+
+const Dumbbell = (props: any) => (
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    width="24" 
+    height="24" 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="2" 
+    strokeLinecap="round" 
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M6.5 6.5h11"></path>
+    <path d="M6.5 17.5h11"></path>
+    <path d="M4 4v16"></path>
+    <path d="M9 4v16"></path>
+    <path d="M15 4v16"></path>
+    <path d="M20 4v16"></path>
+  </svg>
+);
 
 const Progress = () => {
   const navigate = useNavigate();
@@ -32,7 +53,6 @@ const Progress = () => {
   }, [isLoggedIn, navigate]);
   
   useEffect(() => {
-    // Check if we have progress data for the selected date
     const existingProgress = progress.find(p => 
       p.date === format(selected, 'yyyy-MM-dd')
     );
@@ -45,7 +65,6 @@ const Progress = () => {
         strengthProgress: existingProgress.strengthProgress,
       });
     } else {
-      // Reset form for new dates
       setFormData({
         weight: user?.weight.toString() || '',
         workoutCompleted: false,
@@ -90,7 +109,6 @@ const Progress = () => {
     });
   };
   
-  // Prepare data for the weight chart
   const chartData = progress
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
     .map(p => ({
@@ -98,11 +116,9 @@ const Progress = () => {
       weight: p.weight,
     }));
   
-  // Calculate stats
   const completedWorkouts = progress.filter(p => p.workoutCompleted).length;
   const totalCardioMinutes = progress.reduce((total, p) => total + p.cardioMinutes, 0);
   
-  // Get recent achievements
   const getAchievements = () => {
     const achievements = [];
     
@@ -130,7 +146,6 @@ const Progress = () => {
       });
     }
     
-    // Weight loss achievement
     if (user.fitnessGoal === 'weight_loss' && progress.length >= 2) {
       const initialWeight = progress[0].weight;
       const currentWeight = progress[progress.length - 1].weight;
@@ -144,7 +159,6 @@ const Progress = () => {
       }
     }
     
-    // Muscle gain achievement
     if (user.fitnessGoal === 'muscle_gain' && progress.length >= 2) {
       const strengthLogs = progress.filter(p => p.strengthProgress.trim() !== '').length;
       
@@ -160,7 +174,6 @@ const Progress = () => {
     return achievements;
   };
   
-  // For rendering the calendar with progress dots
   const progressDates = progress.map(p => new Date(p.date));
   
   return (
@@ -276,7 +289,7 @@ const Progress = () => {
               components={{
                 DayContent: (props) => (
                   <div className="relative">
-                    <div>{props.day.getDate()}</div>
+                    <div>{props.date.getDate()}</div>
                     {progressDates.some(date => isSameDay(date, props.date)) && (
                       <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-fitness-primary rounded-full"></div>
                     )}
@@ -394,28 +407,5 @@ const Progress = () => {
     </div>
   );
 };
-
-// Use a proper dumbbell icon import 
-const Dumbbell = (props: any) => (
-  <svg 
-    xmlns="http://www.w3.org/2000/svg" 
-    width="24" 
-    height="24" 
-    viewBox="0 0 24 24" 
-    fill="none" 
-    stroke="currentColor" 
-    strokeWidth="2" 
-    strokeLinecap="round" 
-    strokeLinejoin="round"
-    {...props}
-  >
-    <path d="M6.5 6.5h11"></path>
-    <path d="M6.5 17.5h11"></path>
-    <path d="M4 4v16"></path>
-    <path d="M9 4v16"></path>
-    <path d="M15 4v16"></path>
-    <path d="M20 4v16"></path>
-  </svg>
-);
 
 export default Progress;

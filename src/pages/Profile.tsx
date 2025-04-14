@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUser, FitnessGoal } from '@/contexts/UserContext';
@@ -11,6 +10,29 @@ import { Textarea } from '@/components/ui/textarea';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { toast } from '@/components/ui/sonner';
 import { User, Award, Settings, Trophy, Activity, Medal } from 'lucide-react';
+
+// Dumbbell icon component
+const Dumbbell = (props: any) => (
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    width="24" 
+    height="24" 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="2" 
+    strokeLinecap="round" 
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M6.5 6.5h11"></path>
+    <path d="M6.5 17.5h11"></path>
+    <path d="M4 4v16"></path>
+    <path d="M9 4v16"></path>
+    <path d="M15 4v16"></path>
+    <path d="M20 4v16"></path>
+  </svg>
+);
 
 // Level thresholds and details
 const levelDetails = [
@@ -118,12 +140,10 @@ const Profile = () => {
     navigate('/');
   };
   
-  // Find current level details
   const currentLevelDetail = levelDetails.find(l => l.level === user.level) || levelDetails[0];
   
-  // Calculate progress to next level
   const calculateNextLevelProgress = () => {
-    if (!currentLevelDetail.next) return 100; // Already at max level
+    if (!currentLevelDetail.next) return 100;
     
     const currentPoints = user.points;
     const nextLevelPoints = currentLevelDetail.next.points;
@@ -405,29 +425,6 @@ const Profile = () => {
     </div>
   );
 };
-
-// Dumbbell icon component
-const Dumbbell = (props: any) => (
-  <svg 
-    xmlns="http://www.w3.org/2000/svg" 
-    width="24" 
-    height="24" 
-    viewBox="0 0 24 24" 
-    fill="none" 
-    stroke="currentColor" 
-    strokeWidth="2" 
-    strokeLinecap="round" 
-    strokeLinejoin="round"
-    {...props}
-  >
-    <path d="M6.5 6.5h11"></path>
-    <path d="M6.5 17.5h11"></path>
-    <path d="M4 4v16"></path>
-    <path d="M9 4v16"></path>
-    <path d="M15 4v16"></path>
-    <path d="M20 4v16"></path>
-  </svg>
-);
 
 // Switch component for settings
 const Switch = ({ checked = false }: { checked?: boolean }) => {
